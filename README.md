@@ -2,8 +2,12 @@
 
 - Create React App
 - Configured TailwindCSS
-- Header
+- Header 
+- Routing of the app
+- Form validation using useRef
 - Login Form
+- Firebase setup
+- Created Redux store
 
 # Features - 
 - Login / Sign up form

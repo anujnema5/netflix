@@ -1,28 +1,73 @@
-import React from 'react'
+import React, { useRef } from 'react'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import Header from './Header'
 import { useState } from 'react';
+import { checkValidDate } from '../utils/validate';
+import { auth } from '../utils/firebase';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
+  const name = useRef(null)
+  const email = useRef(null);
+  const password = useRef(null);
 
   const [isSignForm, setIsSignForm] = useState(true);
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleButtonClick = (e) => {
     e.preventDefault();
-    // You can add your form submission logic here
-    console.log('Form data submitted:', formData);
-  };
+
+    const userName = name.current.value;
+    const userEmail = email.current.value
+    const userPassword = password.current.value
+    
+    const message = checkValidDate(userEmail)
+    setErrorMessage(message)
+    if (message) return;
+    
+    // Sign In Sign Up Login
+    
+    if (!isSignForm) {
+      createUserWithEmailAndPassword(auth, userEmail, userPassword)
+        .then((userCredential) => {
+          updateProfile(auth?.currentUser, {
+            displayName: userName, photoURL: "https://avatars.githubusercontent.com/u/6759280?v=4"
+          }).then(() => {
+            name.current.value = ""
+            email.current.value = ""
+            password.current.value = ""
+            navigate("/browse")
+          }).catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            setErrorMessage(errorCode + "-" + errorMessage)
+          });
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(errorCode + "-" + errorMessage)
+          console.log(errorMessage);
+        });
+    }
+
+    else {
+      signInWithEmailAndPassword(auth, userEmail, userEmail)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          navigate("/browse")
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+
+          setErrorMessage(errorCode + "-" + errorMessage)
+        });
+
+    }
+  }
 
   const toggleSignInForm = () => {
     setIsSignForm(!isSignForm)
@@ -34,24 +79,22 @@ function Login() {
 
       <div className='h-auto bg-login bg-no-repeat bg-cover bg-center'>
         <div className="w-full bg-black/60 flex flex-col justify-center min-h-screen">
-          <form action="" className='flex justify-center items-center'>
+          <form onSubmit={(e) => e.preventDefault()} action="" className='flex justify-center items-center'>
             <div className="bg-black/70 p-8 rounded-lg shadow-lg w-3/12">
-
               <h1 className="text-2xl font-semibold mb-6 text-gray-200">{isSignForm ? "Sign in" : "Sign up"}</h1>
-              <form onSubmit={handleSubmit}>
-                {!isSignForm && 
-                <div className="mb-4">
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  required
-                  placeholder='Full Name'
-                  className="w-full py-3 px-3 rounded focus:outline-none transition-all duration-300 focus:bg-zinc-900 text-gray-200 bg-zinc-800 placeholder:text-gray-500"
-                />
-              </div>
+              <form>
+                {!isSignForm &&
+                  <div className="mb-4">
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      ref={name}
+                      required
+                      placeholder='Full Name'
+                      className="w-full py-3 px-3 rounded focus:outline-none transition-all duration-300 focus:bg-zinc-900 text-gray-200 bg-zinc-800 placeholder:text-gray-500"
+                    />
+                  </div>
                 }
                 <div className="mb-4">
 
@@ -59,32 +102,30 @@ function Login() {
                     type="text"
                     id="email"
                     name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
+                    ref={email}
                     required
                     placeholder='Email address'
                     className="w-full py-3 px-3 rounded focus:outline-none transition-all duration-300 focus:bg-zinc-900 text-gray-200 bg-zinc-800 placeholder:text-gray-500"
                   />
                 </div>
                 <div className="mb-4">
-
                   <input
                     type="password"
                     id="password"
                     name="password"
                     placeholder='Password'
-                    value={formData.password}
-                    onChange={handleInputChange}
+                    ref={password}
                     required
                     className="w-full py-3 px-3 rounded focus:outline-none transition-all duration-300 focus:bg-zinc-900 text-gray-200 bg-zinc-800 placeholder:text-gray-500"
                   />
                 </div>
+                {errorMessage && <p className='text-red-500 my-3 text-sm'>{errorMessage}</p>}
                 <div className="mb-6">
                   <button
-                    type="submit"
+                    onClick={handleButtonClick}
                     className="w-full bg-red-700 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
                   >
-                    Sign In
+                    {isSignForm ? "Sign in" : "Sign up"}
                   </button>
                 </div>
               </form>
