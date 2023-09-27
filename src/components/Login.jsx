@@ -6,6 +6,7 @@ import { checkValidDate } from '../utils/validate';
 import { auth } from '../utils/firebase';
 import { useDispatch } from 'react-redux';
 import { addUser } from '../utils/userSlice';
+import { USER_AVATAR } from '../utils/constant';
 
 function Login() {
   const name = useRef(null)
@@ -14,7 +15,7 @@ function Login() {
 
   const [isSignForm, setIsSignForm] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
-  
+
   const handleButtonClick = (e) => {
     e.preventDefault();
     const userEmail = email.current.value
@@ -23,39 +24,38 @@ function Login() {
     const message = checkValidDate(userEmail)
     setErrorMessage(message)
     if (message) return;
-
     // Sign In Sign Up Login
 
     if (!isSignForm) {
       const userName = name.current.value
       createUserWithEmailAndPassword(auth, userEmail, userPassword)
-        
-      .then((userCredential) => {
+
+        .then((userCredential) => {
           const user = userCredential.user
-          
+
           updateProfile(user, {
-            displayName: userName, photoURL: "https://avatars.githubusercontent.com/u/6759280?v=4"
+            displayName: userName, photoURL: USER_AVATAR
           })
-          
-          .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            setErrorMessage(errorCode + "-" + errorMessage)
-          });
+
+            .catch((error) => {
+              const errorCode = error.code;
+              const errorMessage = error.message;
+              setErrorMessage(errorCode + "-" + errorMessage)
+            });
         })
-        
+
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
           setErrorMessage(errorCode + "-" + errorMessage)
           console.log(errorMessage);
         });
-    } 
-    
+    }
+
     else {
       signInWithEmailAndPassword(auth, userEmail, userPassword)
         .then((userCredential) => {
-         const user = userCredential.user
+          const user = userCredential.user
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -72,7 +72,6 @@ function Login() {
   return (
     <div>
       <Header />
-
       <div className='h-auto bg-login bg-no-repeat bg-cover bg-center'>
         <div className="w-full bg-black/60 flex flex-col justify-center min-h-screen">
           <form onSubmit={(e) => e.preventDefault()} action="" className='flex justify-center items-center'>

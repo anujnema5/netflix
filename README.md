@@ -8,6 +8,9 @@
 - Login Form
 - Firebase setup
 - Created Redux store
+- BugFix: Signup user displayname and profile picture
+- BugFix: If user is not logged in redirect to login and vice versa
+- Added constant to a file
 
 # Features - 
 - Login / Sign up form
