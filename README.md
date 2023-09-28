@@ -11,6 +11,8 @@
 - BugFix: Signup user displayname and profile picture
 - BugFix: If user is not logged in redirect to login and vice versa
 - Added constant to a file
+- Register TMDB & create an app & get access token
+- GET Data from TMDB and get now playing movies
 
 # Features - 
 - Login / Sign up form
