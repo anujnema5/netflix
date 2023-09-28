@@ -8,7 +8,7 @@ function Browse() {
   useNowPlayingMovies()
 
   return (
-    <div>
+    <div className='overflow-hidden'>
       <Header />
       <MainContainer/>
       <SecondaryContainer/>

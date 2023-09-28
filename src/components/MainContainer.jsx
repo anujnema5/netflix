@@ -11,9 +11,11 @@ function MainContainer() {
   const {original_title, overview, id} = mainMovie;
 
   return (
-    <div>
+    <div className='relative '>
       <VideoTitle title={original_title} overview={overview}/>
       <VideoBackground movieId={id}/>
+
+      <div className='absolute top-0 overlay w-full h-full  bg-gradient-to-r from-black  '></div>
     </div>
   )
 }
