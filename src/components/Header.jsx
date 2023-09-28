@@ -36,12 +36,12 @@ function Header() {
 
 
     return (
-        <div className="absolute w-screen px-8 py-1 bg-gradient-to-b from-black z-10 flex justify-between">
+        <div className=" w-screen px-8 py-1 bg-gradient-to-b from-black z-10 flex justify-between">
             <img className='w-48' src={LOGO} alt="logo" />
 
-            {user && <div className="flex items-center">
-                <img className='w-12 h-12' src={user?.photoURL} alt="usericon" />
-                <button className='bg-red-500 px-2 py-1 font-bold rounded-md text-white' onClick={handleSignOut}>Sign out</button>
+            {user && <div className="flex gap-3 items-center">
+                <img className='w-12 h-12 rounded-md' src={user?.photoURL} alt="usericon" />
+                <button className='bg-red-700 px-2 py-1 font-semibold rounded-md text-white' onClick={handleSignOut}>Sign out</button>
             </div>}
         </div>
     )
