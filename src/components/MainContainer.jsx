@@ -15,7 +15,7 @@ function MainContainer() {
       <VideoTitle title={original_title} overview={overview}/>
       <VideoBackground movieId={id}/>
 
-      <div className='absolute top-0 overlay w-full h-full  bg-gradient-to-r from-black  '></div>
+      <div className='absolute top-0 overlay w-full h-full  bg-gradient-to-r from-black '></div>
     </div>
   )
 }
