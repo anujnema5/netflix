@@ -36,7 +36,7 @@ function Header() {
 
 
     return (
-        <div className="w-screen px-8 py-2 bg-gradient-to-b from-black to-black  z-10 flex justify-between">
+        <div className="w-screen px-8 py-2 bg-gradient-to-b from-black to-black z-10 flex justify-between">
             <img className='w-48' src={LOGO} alt="logo" />
 
             {user && <div className="flex gap-3 items-center">
