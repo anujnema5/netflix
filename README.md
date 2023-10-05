@@ -13,6 +13,7 @@
 - Added constant to a file
 - Register TMDB & create an app & get access token
 - GET Data from TMDB and get now playing movies
+- All setup done OpenAI chat setuo and other setup done
 
 # Features - 
 - Login / Sign up form
