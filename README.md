@@ -28,5 +28,5 @@
 
 - Netflix GPT
         - Search Bar
-        - Movie Suggestions
+        - Movie Suggestions according to input/prompt
         
