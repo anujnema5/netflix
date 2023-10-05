@@ -5,6 +5,8 @@ import appStore from './utils/appStore';
 
 function App() {
 
+  console.log("TMDB KEY - " + process.env.REACT_APP_ENVIRONMENT);
+
   return (
     <div className="overflow-hidden">
       <Provider store={appStore} >
