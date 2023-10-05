@@ -13,3 +13,10 @@ export const API_OPTION = {
 
 export const IMG_CDN_URL="https://image.tmdb.org/t/p/w400/"
 
+export const SUPPORTED_LANGUAGES = [
+  {identifier: "hindi", name: "Hindi"},
+  {identifier: "en", name: "English"},
+  {identifier: "spanish", name: "Spanish"}
+]
+
+export const OPEN_AI_KEY = "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"

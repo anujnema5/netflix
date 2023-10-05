@@ -8,7 +8,7 @@ function SecondaryContainer() {
 
   return (
    movies.nowPlayingMovies && movies.popularMovies && (
-    <div className="bgb-black">
+    <div className="bg-black">
     <div className='relative bottom-0'>
       <Movielist title={"Now Playing"} movies={movies.nowPlayingMovies} />
       <Movielist title={"Popular Movies"} movies={movies.popularMovies} />

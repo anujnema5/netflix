@@ -48,7 +48,6 @@ function Login() {
           const errorCode = error.code;
           const errorMessage = error.message;
           setErrorMessage(errorCode + "-" + errorMessage)
-          console.log(errorMessage);
         });
     }
 
